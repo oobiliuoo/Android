@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.baidu.mapsdkexample">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".DemoApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="e0USbUR0HMKBwfHkoDX63uoHu1TkrEkW" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <activity
+            android:name=".BMapApiDemoMain"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_main"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".routeplan.RoutePlanDemoList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_route_plan"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".routeplan.TransitRoutePlanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_transit_route_plan"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".routeplan.BikingRoutePlanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_biking_route_plan"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".routeplan.WalkingRoutePlanActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_walking_route_plan"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".routeplan.RouteDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_route_plan_detail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mapshow.MapCreateDemoList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_map_crearte"
+            android:screenOrientation="portrait" />
+        <activity android:name=".mapshow.CustomMapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_create_custom_map"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mapshow.FragmentLoadActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_create_fragment"
+            android:screenOrientation="portrait"
+            android:theme="@style/FragmentAppTheme" />
+        <activity
+            android:name=".mapshow.placechoose.MapPlaceChooseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_place_choose"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mapshow.OverSeaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_create_oversea"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.GeometryList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_geometry_draw"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.CustomMarkerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_custom_marker"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.MarkerTransformation"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_marker_animation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.MarkerZoomActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_marker_zoom"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.markercluster.ClusterMarkerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_marker_cluster"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".trace.TraceDemoList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_trace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".trace.TraceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_trace_smooth_move"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".search.PoiSearchDemoList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_search"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".search.poisearch.PoiCitySearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_suggestion_search"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".mapcontrol.MapControlDemoList"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_list_map_control"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mapcontrol.ScreenShotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_control_screen_shot"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mapcontrol.BoundsPaddingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_control_screen_bounds"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".geometry.DistrictClickDemo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_click_district"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".geometry.SearchMarkerDemo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/demo_name_map_more_window"
+            android:screenOrientation="portrait" />
+        <activity
+                android:name=".mapcontrol.scrollpage.MapScrollActivity"
+                android:label="@string/demo_name_interact_scroll_page"
+                android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

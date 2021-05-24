@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/devided_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/action_bar_devided_line"/>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/devided_line"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:background="@color/search_header_bg_0"
+            android:textSize="13sp"
+            android:text="@string/marker_animation_tips"
+            android:textColor="@color/white"/>
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".mapshow.placechoose.MapPlaceChooseActivity">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapview"
+        app:layout_constraintBottom_toTopOf="@id/poi_list"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dp160"
+        tools:ignore="MissingConstraints">
+    </com.baidu.mapapi.map.MapView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/poi_list"
+        app:layout_constraintTop_toBottomOf="@id/mapview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:scrollbarSize="@dimen/dp4"
+        android:scrollbars="vertical"
+        android:paddingBottom="@dimen/dp40"
+        android:layout_height="@dimen/dp200">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

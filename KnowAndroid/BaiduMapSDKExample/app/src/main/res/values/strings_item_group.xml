@@ -1,0 +1,67 @@
+<resources>
+    <!-- 地图绘制 -->
+    <string name="demo_list_geometry_draw">覆盖物绘制</string>
+    <string name="demo_desc_geometry_draw">丰富覆盖物效果</string>
+    <string name="demo_name_marker_animation">点标记平移动画</string>
+    <string name="demo_desc_marker_animation">点击地图平移到指定位置</string>
+    <string name="marker_animation_tips">提示：点击地图，点标记平移</string>
+    <string name="demo_name_custom_marker">自定义点标记图标</string>
+    <string name="demo_desc_custom_marker">添加自定义标记样式</string>
+    <string name="demo_name_marker_cluster">点聚合</string>
+    <string name="demo_desc_custom_cluster">绘制大量点标记时，通过缩小地图聚合显示成一个点</string>
+    <string name="demo_name_marker_zoom">点标记缩放动画</string>
+    <string name="demo_desc_marker_zoom">通过点标记的缩放突出展示指定位置</string>
+
+    <!-- 路线规划列表 -->
+    <string name="demo_list_route_plan">路线规划</string>
+    <string name="demo_desc_routeplan">结合实时交通，为用户提供多种路线规划服务</string>
+    <string name="demo_name_route_plan_detail">路线规划详情页</string>
+    <string name="demo_name_walking_route_plan">步行路线规划</string>
+    <string name="demo_desc_walking_route_plan">融合步行路线规划和覆盖物绘制能力</string>
+    <string name="demo_name_biking_route_plan">骑行路线规划</string>
+    <string name="biking_route_plan_type_instruction">骑行类型(选中普通骑行模式,不选中电动车模式)</string>
+    <string name="demo_desc_biking_route_plan">融合骑行路线规划和覆盖物绘制能力</string>
+    <string name="demo_name_transit_route_plan">公交路线规划</string>
+    <string name="demo_desc_transit_route_plan">融合市内公交换乘路线规划和覆盖物绘制能力</string>
+
+    <!-- 地图显示 -->
+    <string name="demo_list_map_crearte">地图显示</string>
+    <string name="demo_desc_map_create">提供不同类型地图展示能力</string>
+    <string name="demo_name_map_create_fragment">Fragment 加载地图</string>
+    <string name="demo_desc_map_create_fragment">Fragment地图</string>
+    <string name="demo_name_map_place_choose">地图选点</string>
+    <string name="demo_desc_map_place_choose">用户通过滑动地图找到目标位置</string>
+    <string name="demo_name_map_create_oversea">境外地图</string>
+    <string name="demo_desc_map_create_oversea">全球200多个国家和地区详细道路、POI等数据展示</string>
+    <string name="demo_name_map_create_custom_map">个性化地图</string>
+    <string name="demo_desc_map_create_custom_map">展示地图适配多种样式风格</string>
+    <string name="demo_name_map_more_window">多信息窗展示</string>
+    <string name="demo_desc_map_more_window">支持多个点标记和信息窗同时展示</string>
+    <string name="demo_name_map_click_district">Overlay点击选中</string>
+    <string name="demo_desc_map_click_district">支持点、线、圆、多边形等多种覆盖物点击选中</string>
+
+    <!-- 轨迹 -->
+    <string name="demo_list_trace">轨迹</string>
+    <string name="demo_desc_trace">点标记平滑移动</string>
+    <string name="demo_name_trace_smooth_move">平滑移动</string>
+    <string name="demo_desc_trace_smooth_move_">基于运动、出行场景的点标记平滑移动</string>
+
+    <!-- 检索 -->
+    <string name="demo_list_search">检索</string>
+    <string name="demo_desc_search">通过地图检索获取海量POI等</string>
+    <string name="demo_name_suggestion_search">地点检索</string>
+    <string name="demo_desc_suggestion_search">结合sug检索和POI精准找到期望POI</string>
+
+    <!-- 事件交互 -->
+    <string name="demo_list_map_control">地图交互</string>
+    <string name="demo_desc_map_control">地图和View组合截屏、标记点适配屏幕</string>
+    <string name="demo_name_map_control_screen_shot">地图截图</string>
+    <string name="demo_desc_map_control_screen_shot">组装地图截图和其他View截图</string>
+    <string name="demo_name_map_control_screen_bounds">点标记适配屏幕</string>
+    <string name="demo_desc_map_control_screen_bounds">将地图中所有的标记点适配在屏幕可视范围</string>
+    <!-- 交互 -->
+    <string name="demo_list_interact">交互</string>
+    <string name="demo_desc_interact">地图手势交互</string>
+    <string name="demo_name_interact_scroll_page">地图滑动手势处理</string>
+    <string name="demo_desc_interact_scroll_page">地图与父View滑动手势冲突处理</string>
+</resources>

@@ -1,0 +1,2 @@
+rootProject.name='BaiduMapSDKExample'
+include ':app'

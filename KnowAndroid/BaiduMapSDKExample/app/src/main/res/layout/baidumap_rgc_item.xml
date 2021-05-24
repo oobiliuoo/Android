@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp20"
+    android:layout_marginRight="@dimen/dp20"
+    android:orientation="horizontal">
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="@dimen/dp0"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/poiResultName"
+            android:layout_marginTop="@dimen/dp13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:maxLines="2"
+            android:ellipsize = "end"
+            android:textSize="@dimen/dp20"
+            android:fontFamily="@string/PingFang_SC_Medium"
+            android:textColor="@color/colorBlack"
+            />
+
+        <TextView
+            android:id="@+id/poiResultDetail"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:maxLines="3"
+            android:ellipsize = "end"
+            android:textSize="@dimen/dp13"
+            android:fontFamily="@string/PingFangSC_Regular"
+            android:textColor="@color/colorGray"/>
+    </LinearLayout>
+
+
+        <ImageView
+                android:id="@+id/imgCheck"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp20"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                android:background="@drawable/icon_check"
+                android:visibility="invisible">
+
+        </ImageView>
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HelloBaiduMapActivity"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_baimap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            >
+
+        </com.baidu.mapapi.map.MapView>
+
+
+        <include layout="@layout/layout_park"
+            android:id="@+id/layout_park"
+            android:visibility="gone"/>
+
+        <include layout="@layout/layout_parkinfo"
+            android:id="@+id/layout_parkInfo"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
