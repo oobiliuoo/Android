@@ -31,12 +31,20 @@ import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.route.BikingRouteResult;
+import com.baidu.mapapi.search.route.DrivingRouteResult;
+import com.baidu.mapapi.search.route.IndoorRouteResult;
+import com.baidu.mapapi.search.route.MassTransitRouteResult;
+import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.TransitRouteResult;
+import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.oobiliuoo.parkingtong.utils.overlayutil.PoiOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaiduMapBaseActivity extends AppCompatActivity implements OnGetPoiSearchResultListener {
+public abstract class BaiduMapBaseActivity extends AppCompatActivity implements OnGetPoiSearchResultListener, OnGetRoutePlanResultListener {
 
     private static final String TAG = "BaiduMapBaseActivity";
 
@@ -56,7 +64,7 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
     protected PoiSearch poiSearch;
     protected PoiOverlay poiOverlay;
 
-
+    protected RoutePlanSearch routePlanSearch;
 
     // 加final 是为了不让子类覆盖,预防一些类还没初始化就被子类调用
     @Override
@@ -110,7 +118,8 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
         };
         mBaiduMap.setOnMarkerClickListener(poiOverlay);
 
-
+        routePlanSearch = RoutePlanSearch.newInstance();
+        routePlanSearch.setOnGetRoutePlanResultListener(this);
 
         init();
 
@@ -308,6 +317,37 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
     }
 
 
+    // 路线规划相关接口函数
+    @Override
+    public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
+
+    }
+
+
+    @Override
+    public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
+
+    }
+
+    @Override
+    public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
+
+    }
+
+    @Override
+    public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
+
+    }
+
+    @Override
+    public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
+
+    }
+
+    @Override
+    public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+
+    }
 
     @Override
     protected void onDestroy() {

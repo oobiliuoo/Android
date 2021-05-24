@@ -24,6 +24,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="剩余车位：110 "
+            android:textColor="@color/purple_700"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_porkName"
+            app:layout_constraintRight_toLeftOf="@id/btn_parkInfo_order"
+            />
+
+        <TextView
             android:id="@+id/tv_porkDistance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,24 +47,22 @@
         <TextView
             android:id="@+id/tv_porkHours"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="营业时间：暂无"
+            android:text="6:00-22:00"
             android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_porkTel"
             app:layout_constraintTop_toBottomOf="@id/tv_porkName" />
 
         <TextView
             android:id="@+id/tv_porkTel"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:text="TEL:暂无"
             android:textSize="20sp"
-            app:layout_constraintLeft_toRightOf="@id/tv_porkHours"
-            app:layout_constraintRight_toLeftOf="@+id/btn_parkInfo_order"
-            app:layout_constraintTop_toBottomOf="@id/tv_porkName" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_porkHours" />
 
         <TextView
             android:id="@+id/tv_porkAddress"
@@ -65,7 +73,7 @@
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_parkInfo_order"
-            app:layout_constraintTop_toBottomOf="@id/tv_porkHours"
+            app:layout_constraintTop_toBottomOf="@id/tv_porkTel"
 
             />
 
@@ -76,6 +84,7 @@
             android:layout_height="wrap_content"
             android:text="预订"
             app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="10dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_porkName" />
 
         <Button
@@ -84,6 +93,7 @@
             android:layout_height="wrap_content"
             android:text="到这去"
             app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="10dp"
             app:layout_constraintTop_toBottomOf="@id/btn_parkInfo_order" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
