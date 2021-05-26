@@ -1,5 +1,6 @@
 package com.oobiliuoo.parkingtong;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -8,6 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.oobiliuoo.parkingtong.ui.HomeFragment;
+import com.oobiliuoo.parkingtong.adapter.MyFragmentPagerAdapter;
+import com.oobiliuoo.parkingtong.ui.MineFragment;
+import com.oobiliuoo.parkingtong.ui.OrderFragment;
+import com.oobiliuoo.parkingtong.utils.Utils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -23,6 +32,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_main);
         initPager();
         initTabView();
+
+        Utils.mLog1("onCreate");
     }
 
     private void initTabView() {
@@ -46,8 +57,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         viewPager = findViewById(R.id.id_viewpager);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance("通信录"));
-        fragments.add(HomeFragment.newInstance("发现"));
-        fragments.add(HomeFragment.newInstance("我"));
+        fragments.add(OrderFragment.newInstance("发现","参数"));
+        fragments.add(MineFragment.newInstance("我","参数"));
         MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),getLifecycle(),fragments);
         viewPager.setAdapter(pagerAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -100,4 +111,15 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         changeTab(v.getId());
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Utils.mLog1("MainActivity: onSaveIn");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Utils.mLog1("MainActivity: onDestroy");
+    }
 }

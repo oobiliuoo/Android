@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".ui.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/iv_1"
+            android:id="@+id/home_iv_1"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iv_2"
+                android:id="@+id/home_iv_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -38,7 +38,7 @@
                 android:src="@drawable/notice" />
 
             <TextView
-                android:id="@+id/tv_notice"
+                android:id="@+id/home_tv_notice"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
@@ -57,7 +57,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_notice"
+                android:id="@+id/home_cv_notice"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 app:cardElevation="10dp">
@@ -86,7 +86,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_active"
+                android:id="@+id/home_cv_active"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="100dp"
@@ -124,7 +124,7 @@
             android:gravity="center">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_park"
+                android:id="@+id/home_cv_park"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -158,7 +158,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_parkLast"
+                android:id="@+id/home_cv_parkLast"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -183,7 +183,7 @@
             android:gravity="center">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_findCar"
+                android:id="@+id/home_cv_findCar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

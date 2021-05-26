@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_margin="10dp"
+    android:elevation="5dp"
+    app:cardCornerRadius="10dp">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/orderInfo_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="订单号： "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/orderInfo_orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="EE202105252610"
+            app:layout_constraintLeft_toRightOf="@+id/orderInfo_tv1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/orderInfo_tvOrderTime"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="2021-05-25 12:50 "
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/orderInfo_pName"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="湘南学院停车场"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderInfo_tv1" />
+
+
+        <TextView
+            android:id="@+id/orderInfo_tvMoney"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="￥ 100"
+            android:textSize="18sp"
+            app:layout_constraintRight_toLeftOf="@id/orderInfo_tvState"
+            app:layout_constraintTop_toBottomOf="@+id/orderInfo_tvOrderTime"
+
+            />
+
+        <TextView
+            android:id="@+id/orderInfo_tvState"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/yellow_1"
+            android:gravity="center"
+            android:text="停车中"
+            android:textSize="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/orderInfo_tvOrderTime" />
+
+        <TextView
+            android:id="@+id/orderInfo_inTime"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="5-25 12:50 "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderInfo_pName"
+
+            />
+
+        <ImageView
+            android:id="@+id/orderInfo_iv1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_forward_24"
+            app:layout_constraintLeft_toRightOf="@id/orderInfo_inTime"
+            app:layout_constraintTop_toBottomOf="@id/orderInfo_pName"
+
+            />
+
+
+        <TextView
+            android:id="@+id/orderInfo_outTime"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="5-25 13:11 "
+            app:layout_constraintLeft_toRightOf="@+id/orderInfo_iv1"
+            app:layout_constraintTop_toBottomOf="@+id/orderInfo_pName"
+
+            />
+
+        <Button
+            android:id="@+id/orderInfo_btnCancel"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="取消"
+            android:textSize="10sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

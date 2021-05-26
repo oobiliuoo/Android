@@ -1,4 +1,4 @@
-package com.oobiliuoo.parkingtong;
+package com.oobiliuoo.parkingtong.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+
+import com.oobiliuoo.parkingtong.HelloBaiduMapActivity;
+import com.oobiliuoo.parkingtong.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,21 +81,21 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
 
-        cardViewNotice = getView().findViewById(R.id.cardView_notice);
+        cardViewNotice = getView().findViewById(R.id.home_cv_notice);
         cardViewNotice.setOnClickListener(new lister());
 
-        cardViewActive = getView().findViewById(R.id.cardView_active);
+        cardViewActive = getView().findViewById(R.id.home_cv_active);
         cardViewActive.setOnClickListener(new lister());
 
 
-        cardViewPark = getView().findViewById(R.id.cardView_park);
+        cardViewPark = getView().findViewById(R.id.home_cv_park);
         cardViewPark.setOnClickListener(new lister());
 
 
-        cardViewLastPark = getView().findViewById(R.id.cardView_parkLast);
+        cardViewLastPark = getView().findViewById(R.id.home_cv_parkLast);
         cardViewLastPark.setOnClickListener(new lister());
 
-        cardViewFindCar = getView().findViewById(R.id.cardView_findCar);
+        cardViewFindCar = getView().findViewById(R.id.home_cv_findCar);
         cardViewFindCar.setOnClickListener(new lister());
 
 
@@ -106,7 +109,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.cardView_park:
+                case R.id.home_cv_park:
 
                     Intent intent = new Intent(getActivity(), HelloBaiduMapActivity.class);
                     startActivity(intent);
@@ -114,19 +117,19 @@ public class HomeFragment extends Fragment {
                     Log.i(TAG, "onClick: park"  );
                     break;
 
-                case R.id.cardView_findCar:
+                case R.id.home_cv_findCar:
                     Log.i(TAG, "onClick: fc"  );
                     break;
-                case R.id.cardView_parkLast:
+                case R.id.home_cv_parkLast:
                     Log.i(TAG, "onClick: last park"  );
                     break;
                 case R.id.cardView_carNum:
                     Log.i(TAG, "onClick: car num"  );
                     break;
-                case R.id.cardView_notice:
+                case R.id.home_cv_notice:
                     Log.i(TAG, "onClick: notice"  );
                     break;
-                case R.id.cardView_active:
+                case R.id.home_cv_active:
                     Log.i(TAG, "onClick: actuve"  );
                     break;
 

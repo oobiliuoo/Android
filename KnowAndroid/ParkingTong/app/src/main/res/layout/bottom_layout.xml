@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/id_tv_order"
             android:gravity="center"
-            android:text="发现"/>
+            android:text="订单"/>
 
     </LinearLayout>
 

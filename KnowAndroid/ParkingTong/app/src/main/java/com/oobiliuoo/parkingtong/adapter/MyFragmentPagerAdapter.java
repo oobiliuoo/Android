@@ -1,4 +1,4 @@
-package com.oobiliuoo.parkingtong;
+package com.oobiliuoo.parkingtong.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
