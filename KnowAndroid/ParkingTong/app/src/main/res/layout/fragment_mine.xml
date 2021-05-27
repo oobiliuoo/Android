@@ -8,6 +8,7 @@
     tools:context=".ui.MineFragment">
 
     <ImageButton
+        android:id="@+id/mine_btn_login"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"

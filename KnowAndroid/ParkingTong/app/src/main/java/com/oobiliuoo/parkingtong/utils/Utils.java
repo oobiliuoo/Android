@@ -1,6 +1,8 @@
 package com.oobiliuoo.parkingtong.utils;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Utils {
 
@@ -12,6 +14,10 @@ public class Utils {
         Log.i(TAG, text);
     }
 
+    public static void showToast(Context context, String text){
 
+        Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
+
+    }
 
 }
