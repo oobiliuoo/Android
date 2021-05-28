@@ -1,22 +1,24 @@
 package com.oobiliuoo.parkingtong.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.oobiliuoo.parkingtong.R;
 import com.oobiliuoo.parkingtong.net.TcpClient;
-import com.oobiliuoo.parkingtong.net.TcpReceiveThread;
-import com.oobiliuoo.parkingtong.net.TcpSendThread;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
-import java.net.InetAddress;
-import java.net.Socket;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +32,17 @@ public class MineFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private ImageButton imageButton;
+    private static final String IP_ADDRESS = "192.168.43.239";
+    private static final int IP_PORT = 8777;
 
-    private Socket socket = null;
+    private ImageButton imageButton;
+    private TextView uName;
+
+    private Handler mHandler;
+    private TcpClient mTcpClient;
+
+    private boolean isReceiveRun = true;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,66 +97,73 @@ public class MineFragment extends Fragment {
 
     private void initView() {
         imageButton = getView().findViewById(R.id.mine_btn_login);
-        imageButton.setOnClickListener(new lister());
+        imageButton.setOnClickListener(new Lister());
+
+        uName = getView().findViewById(R.id.mine_tv_uName);
+
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                switch (msg.what){
+                    case 1:
+                        // 连接成功
+                        Utils.showToast(getContext(),"连接成功");
+                        break;
+                    case 2:
+                        // 连接失败
+                        Utils.showToast(getContext(),"连接失败");
+                        break;
+                    case 3:
+                        // 接收成功
+                        Utils.showToast(getContext(),"接收成功"+msg.obj);
+                        uName.setText(msg.obj.toString());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
     }
 
-    class lister implements View.OnClickListener{
+    class Lister implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.mine_btn_login:
                     Utils.showToast(getContext(),"登录");
-
-                    //启动连接线程
-                    Connect_Thread connect_Thread = new Connect_Thread();
-                    connect_Thread.start();
-
-                    /*
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            TcpClient mTcpClient = new TcpClient("192.168.43.1",8181);
-                            String message="我是客户端a";
-                            mTcpClient.connect();
-                            mTcpClient.writeMsg("123");
-
-                        }
-                    }).start();
-
-                     */
-
+                    startActivityForResult(new Intent(getActivity(),LoginActivity.class),1);
+                   /*
+                    mTcpClient = new TcpClient(mHandler,IP_ADDRESS,IP_PORT);
+                    mTcpClient.setSendMsg("LOGIN::admin::123456");
+                    mTcpClient.send();
+                    */
                     break;
 
+                default:
+                    break;
             }
 
         }
     }
 
-
-    class Connect_Thread extends Thread//继承Thread
-    {
-        public void run()//重写run方法
-        {
-            try
-            {
-                if (socket == null) //如果已经连接上了，就不再执行连接程序
-                {
-//用InetAddress方法获取ip地址
-                    InetAddress ipAddress = InetAddress.getByName("192.168.43.1");
-                    int port = 8181;//获取端口号
-                    socket = new Socket(ipAddress, port);//创建连接地址和端口-------------------这样就好多了
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    String returnedData = data.getStringExtra("login_return");
+                    Utils.showToast(getContext(),returnedData);
                 }
-
-            }
-            catch (Exception e)
-            {
-            // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+                break;
+            default:
+                break;
         }
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }
