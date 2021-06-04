@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RegisterActivity">
-
+    tools:context=".ui.ChangeInfoActivity">
     <TextView
-        android:id="@+id/register_tv_tel"
+        android:id="@+id/changeInfo_tv_tel"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginTop="80dp"
@@ -20,16 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/register_et_tel"
+        android:id="@+id/changeInfo_et_tel"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginTop="80dp"
         android:inputType="phone"
-        app:layout_constraintLeft_toRightOf="@id/register_tv_tel"
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_tel"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/register_tv_name"
+        android:id="@+id/changeInfo_tv_name"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:gravity="center"
@@ -38,18 +37,18 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_tv_tel" />
+        app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv_tel" />
 
 
     <EditText
-        android:id="@+id/register_et_name"
+        android:id="@+id/changeInfo_et_name"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        app:layout_constraintLeft_toRightOf="@id/register_tv_tel"
-        app:layout_constraintTop_toBottomOf="@id/register_et_tel" />
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_tel"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_et_tel" />
 
     <TextView
-        android:id="@+id/register_tv_gender"
+        android:id="@+id/changeInfo_tv_gender"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:gravity="center"
@@ -58,27 +57,27 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv_name" />
 
 
 
     <RadioGroup
-        android:id="@+id/register_rg_gender"
+        android:id="@+id/changeInfo_rg_gender"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        app:layout_constraintLeft_toRightOf="@id/register_tv_name"
-        app:layout_constraintTop_toBottomOf="@id/register_et_name"
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_name"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_et_name"
         android:orientation="horizontal"
         >
 
         <RadioButton
-            android:id="@+id/register_rb_man"
+            android:id="@+id/changeInfo_rb_man"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:text="男"
             />
         <RadioButton
-            android:id="@+id/register_rb_woman"
+            android:id="@+id/changeInfo_rb_woman"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:text="女"
@@ -87,29 +86,51 @@
 
 
     <TextView
-        android:id="@+id/register_tv_pwd"
+        android:id="@+id/changeInfo_tv_pwd"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="密      码："
+        android:text="原密码："
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_tv_gender" />
+        app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv_gender" />
 
 
     <EditText
-        android:id="@+id/register_et_pwd"
+        android:id="@+id/changeInfo_et_pwd"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:hint="请输入不小于6位密码"
+        android:hint="请输入原密码"
         android:inputType="textPassword"
-        app:layout_constraintLeft_toRightOf="@id/register_tv_gender"
-        app:layout_constraintTop_toBottomOf="@id/register_rg_gender" />
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_gender"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_rg_gender" />
 
     <TextView
-        android:id="@+id/register_tv_pwd2"
+        android:id="@+id/changeInfo_tv_pwd2"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="新密码："
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv_pwd" />
+
+
+    <EditText
+        android:id="@+id/changeInfo_et_pwd2"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="请输入不少于6位密码"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_pwd"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_et_pwd" />
+
+    <TextView
+        android:id="@+id/changeInfo_tv_pwd3"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:gravity="center"
@@ -118,26 +139,25 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_tv_pwd" />
+        app:layout_constraintTop_toBottomOf="@+id/changeInfo_tv_pwd2" />
 
 
     <EditText
-        android:id="@+id/register_et_pwd2"
+        android:id="@+id/changeInfo_et_pwd3"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:hint="请再输一次"
         android:inputType="textPassword"
-        app:layout_constraintLeft_toRightOf="@id/register_tv_pwd"
-        app:layout_constraintTop_toBottomOf="@id/register_et_pwd" />
-
-
+        app:layout_constraintLeft_toRightOf="@id/changeInfo_tv_pwd2"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_et_pwd2" />
     <Button
-        android:id="@+id/register_btn_register"
+        android:id="@+id/changeInfo_btn_changeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="注册"
+        android:text="修改"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_et_pwd2"
+        app:layout_constraintTop_toBottomOf="@id/changeInfo_et_pwd3"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintEnd_toEndOf="parent"/>
 

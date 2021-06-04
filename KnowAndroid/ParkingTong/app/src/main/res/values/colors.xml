@@ -11,4 +11,6 @@
     <color name="blue_1">#99ccff</color>
     <color name="yellow_1">#FFFFCC</color>
 
+    <color name="orderState_ok">#e1e1e1</color>
+
 </resources>

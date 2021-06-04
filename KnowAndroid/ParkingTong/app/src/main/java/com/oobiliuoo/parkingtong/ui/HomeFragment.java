@@ -24,7 +24,6 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    // TODO: Rename and change types of parameters
     private String mTextString;
     View rootView;
 
@@ -42,7 +41,6 @@ public class HomeFragment extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment BlankFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();

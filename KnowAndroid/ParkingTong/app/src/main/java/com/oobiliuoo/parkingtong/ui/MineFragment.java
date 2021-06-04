@@ -1,24 +1,37 @@
 package com.oobiliuoo.parkingtong.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.oobiliuoo.parkingtong.R;
-import com.oobiliuoo.parkingtong.net.TcpClient;
+import com.oobiliuoo.parkingtong.database.UsersInfo;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,14 +45,19 @@ public class MineFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final String IP_ADDRESS = "192.168.43.239";
-    private static final int IP_PORT = 8777;
 
     private ImageButton imageButton;
     private TextView uName;
+    private TextView tvNickName;
+    private TextView tvGender;
+    private TextView tvTel;
+    private Button btnQuit;
+    private TextView tvCarNum;
+    private ImageButton ibAddCar;
+    private ConstraintLayout changeInfo;
 
     private Handler mHandler;
-    private TcpClient mTcpClient;
+    private List<String> infoList;
 
     private boolean isReceiveRun = true;
 
@@ -96,49 +114,117 @@ public class MineFragment extends Fragment {
     }
 
     private void initView() {
+
+        infoList = new ArrayList<>();
         imageButton = getView().findViewById(R.id.mine_btn_login);
         imageButton.setOnClickListener(new Lister());
+        btnQuit = getView().findViewById(R.id.mine_btn_quit);
+        btnQuit.setOnClickListener(new Lister());
 
-        uName = getView().findViewById(R.id.mine_tv_uName);
+        uName = getView().findViewById(R.id.mine_tv_name);
+        tvNickName = getView().findViewById(R.id.mine_tv_nickName);
+        tvGender = getView().findViewById(R.id.mine_tv_gender);
+        tvTel = getView().findViewById(R.id.mine_tv_tel);
 
-        mHandler = new Handler(){
+        tvCarNum = getView().findViewById(R.id.mine_tv_carNum);
+        ibAddCar = getView().findViewById(R.id.mine_btn_addCar);
+        ibAddCar.setOnClickListener(new Lister());
+
+        changeInfo = getView().findViewById(R.id.mine_btn_changeInfo);
+        changeInfo.setOnClickListener(new Lister());
+
+        mHandler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
-                switch (msg.what){
+                switch (msg.what) {
                     case 1:
                         // 连接成功
-                        Utils.showToast(getContext(),"连接成功");
+                        Utils.showToast(getContext(), "连接成功");
                         break;
                     case 2:
                         // 连接失败
-                        Utils.showToast(getContext(),"连接失败");
+                        Utils.showToast(getContext(), "连接失败");
                         break;
                     case 3:
                         // 接收成功
-                        Utils.showToast(getContext(),"接收成功"+msg.obj);
-                        uName.setText(msg.obj.toString());
+                        changeUI(infoList);
                         break;
                     default:
                         break;
                 }
             }
         };
+        // 读取当前登录用户
+        String tel = Utils.readCurrentUser(getContext());
+        // 读取帐号信息
+        if (tel != "") {
+            imageButton.setVisibility(View.GONE);
+            readDate(tel);
+        } else {
+            imageButton.setVisibility(View.VISIBLE);
+        }
 
     }
 
-    class Lister implements View.OnClickListener{
+    private void changeUI(List<String> info) {
+        uName.setText(info.get(0));
+        tvGender.setText(info.get(1));
+        tvTel.setText(info.get(2));
+        tvNickName.setText(info.get(3));
+    }
+
+    class Lister implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.mine_btn_login:
-                    Utils.showToast(getContext(),"登录");
-                    startActivityForResult(new Intent(getActivity(),LoginActivity.class),1);
+                    Utils.showToast(getContext(), "登录");
+                    // 打开登录界面并获取结果
+                    startActivityForResult(new Intent(getActivity(), LoginActivity.class), 1);
+                    // TODO 打开服务器连接
                    /*
                     mTcpClient = new TcpClient(mHandler,IP_ADDRESS,IP_PORT);
                     mTcpClient.setSendMsg("LOGIN::admin::123456");
                     mTcpClient.send();
                     */
+                    break;
+
+                case R.id.mine_btn_quit:
+                    Utils.showToast(getContext(), "退出登录");
+                    // 修改本地账户为"“
+                    changeCurrentUser("");
+                    tvNickName.setVisibility(View.GONE);
+                    // 打开登录界面并获取结果
+                    startActivityForResult(new Intent(getActivity(), LoginActivity.class), 1);
+                    break;
+
+                case R.id.mine_btn_addCar:
+
+                    View view2 = View.inflate(getActivity(), R.layout.layout_mine_addcar, null);
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("添加车辆")
+                            .setView(view2)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    EditText carNum = view2.findViewById(R.id.addCar_carNum);
+                                    String s = carNum.getText().toString();
+                                    Toast.makeText(getActivity(), "确定", Toast.LENGTH_SHORT).show();
+                                    tvCarNum.setVisibility(View.VISIBLE);
+                                    tvCarNum.setText(s);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    Toast.makeText(getActivity(), "取消", Toast.LENGTH_SHORT).show();
+                                }
+                            }).show();
+                    break;
+                case R.id.mine_btn_changeInfo:
+                    startActivity(new Intent(getActivity(),ChangeInfoActivity.class));
                     break;
 
                 default:
@@ -148,18 +234,49 @@ public class MineFragment extends Fragment {
         }
     }
 
+    /**
+     * 上一个活动结束时的回调函数
+     * 取出返回结果
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     String returnedData = data.getStringExtra("login_return");
-                    Utils.showToast(getContext(),returnedData);
+                    Utils.showToast(getContext(), returnedData);
+                    readDate(returnedData);
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 从本地数据库中读取用户信息
+     * tel: 当前登录帐号
+     */
+    private void readDate(String tel) {
+        // 查询数据库中数据
+        List<UsersInfo> userList = LitePal.where("tel = ?", tel).find(UsersInfo.class);
+        // 查询到数据传递给handler进行UI更新
+        infoList.add(userList.get(0).getName());
+        infoList.add(userList.get(0).getGender());
+        infoList.add(userList.get(0).getTel());
+        infoList.add(userList.get(0).getNickName());
+
+        Utils.sendMessage(mHandler, 3, "changeUI");
+    }
+
+    /**
+     *  修改本地账户
+     * */
+    private void changeCurrentUser(String tel) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("data",MODE_PRIVATE).edit();
+        editor.putString("tel",tel);
+        editor.apply();
+
     }
 
     @Override

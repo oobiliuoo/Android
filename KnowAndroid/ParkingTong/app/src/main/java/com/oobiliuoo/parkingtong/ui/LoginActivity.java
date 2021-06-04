@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,9 +22,9 @@ import com.oobiliuoo.parkingtong.utils.Utils;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int MIX_NAME_LENGTH = 9 ;
-    private static final int MAX_NAME_LENGTH = 11 ;
-    private static final int MIX_PWD_LENGTH = 6 ;
+    private static final int MIX_NAME_LENGTH = 10 ;
+    private static final int MAX_NAME_LENGTH = 12 ;
+    private static final int MIX_PWD_LENGTH = 5 ;
 
 
     private EditText etName;
@@ -68,12 +69,17 @@ public class LoginActivity extends AppCompatActivity {
     private void handMsg(String string) {
         if(Utils.RESPOND_ACCESS_LOGIN.equals(string)){
             Utils.showToast(LoginActivity.this,"登录成功");
+            // 将帐号传回 MineFragment
             Intent intent = new Intent();
-            intent.putExtra("login_return","access_login");
+            intent.putExtra("login_return",userInfo[0]);
             setResult(RESULT_OK,intent);
+            // 保存帐号到本地
+            saveCurrentUser(userInfo[0]);
+
             finish();
         }
     }
+
 
     private void initView() {
         etName = findViewById(R.id.login_ev_name);
@@ -88,11 +94,15 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo[1] = etPassword.getText().toString();
                 if(userInfo[0].length() > MIX_NAME_LENGTH && userInfo[0].length() < MAX_NAME_LENGTH
                         && userInfo[1].length() > MIX_PWD_LENGTH){
-                    if(isNumeric(userInfo[0])){
+                    if(Utils.isNumeric(userInfo[0])){
+                        /*
                         TcpClient mTcpClient = new TcpClient(mHandler, Utils.IP_ADDRESS, Utils.IP_PORT);
                         String message = Utils.REQUEST_LOGIN + userInfo[0] + Utils.DIVISION + userInfo[1];
                         mTcpClient.setSendMsg(message);
                         mTcpClient.send();
+                         */
+
+                        Utils.sendMessage(mHandler,3,Utils.RESPOND_ACCESS_LOGIN);
                     }else {
                         Utils.showToast(LoginActivity.this,"帐号输入出错");
                     }
@@ -113,14 +123,15 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean isNumeric(String str) {
-        for(int i =0;i<str.length();i++){
-            if(!Character.isDigit(str.charAt(i))){
-                return false;
-            }
-        }
-        return true;
-    }
 
+    /**
+     *  保存当前用户到本地
+     * */
+    private void saveCurrentUser(String tel) {
+        SharedPreferences.Editor editor = getSharedPreferences("data",MODE_PRIVATE).edit();
+        editor.putString("tel",tel);
+        editor.apply();
+
+    }
 
 }

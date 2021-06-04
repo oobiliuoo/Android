@@ -4,9 +4,11 @@
     <!-- 数据库名 -->
     <dbname value="ParkingTong"/>
     <!-- 版本号 -->
-    <version value="1"/>
+    <version value="2"/>
     <list>
         <!-- 创建表 -->
-        <mapping class="com.oobiliuoo.parkingtong.database.UsersInfo"/>//数据库表名
+        <mapping class="com.oobiliuoo.parkingtong.database.UsersInfo"/>
+        <mapping class="com.oobiliuoo.parkingtong.database.OrderInfo"/>
+
     </list>
 </litepal>

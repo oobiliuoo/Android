@@ -1,20 +1,22 @@
 package com.oobiliuoo.parkingtong.ui;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.oobiliuoo.parkingtong.MainActivity;
 import com.oobiliuoo.parkingtong.R;
 import com.oobiliuoo.parkingtong.adapter.OrderInfoAdapter;
-import com.oobiliuoo.parkingtong.object.OrderInfo;
+import com.oobiliuoo.parkingtong.database.OrderInfo;
+import com.oobiliuoo.parkingtong.database.UsersInfo;
 import com.oobiliuoo.parkingtong.utils.Utils;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +87,7 @@ public class OrderFragment extends Fragment {
     public void onStart() {
         Utils.mLog1("OF:onStart");
         super.onStart();
-        if(listView == null) initView();
+        if(listView == null){ initView();}
 
     }
 
@@ -101,15 +103,23 @@ public class OrderFragment extends Fragment {
 
     }
     private void initOrderInfo() {
+        // 从本地数据库读取数据
+        // 读取当前登录用户
+        String tel =  Utils.readCurrentUser(getContext());
+        if(tel!=""){
+            // 查询数据库中数据
+            SQLiteDatabase db = LitePal.getDatabase();
+            orderInfoList = LitePal.where("orderTel = ?",tel).order("id desc").find(OrderInfo.class);
+        }
+
+        // 以下为自定义数据
         OrderInfo info1 = new OrderInfo("EE1900250145","新世纪超级无敌多的停车场出入口"
-                ,"2021-05-25 13:51","已预订");
+                ,"2021-05-25 13:51","预订");
+        info1.setMoney("36.50");
         orderInfoList.add(info1);
 
-        OrderInfo info2 = new OrderInfo("AA1250041145","湘南学院停车场"
-                ,"2021-05-25 13:51","停车中");
-        orderInfoList.add(info2);
         OrderInfo info3 = new OrderInfo("BB1250041145","北湖停车场"
-                ,"2021-05-25 13:51","已完成");
+                ,"2021-05-25 13:51","待支付");
         info3.setMoney("500");
         orderInfoList.add(info3);
 
@@ -118,7 +128,9 @@ public class OrderFragment extends Fragment {
         info4.setMoney("200");
         orderInfoList.add(info4);
 
+
     }
+
 
     @Override
     public void onPause() {

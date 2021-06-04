@@ -8,10 +8,13 @@ import org.litepal.crud.LitePalSupport;
  * @author biliu
  */
 public class UsersInfo extends LitePalSupport {
-    @Column(nullable = false)
+    @Column(defaultValue = "unKnow")
     private String name;
-    @Column(nullable = false)
+    @Column(defaultValue = "unKnow")
     private String gender;
+    /** 用户昵称*/
+    @Column(defaultValue = "user")
+    private String nickName;
     @Column(nullable = false)
     private String tel;
     @Column(nullable = false)
@@ -35,6 +38,14 @@ public class UsersInfo extends LitePalSupport {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getTel() {

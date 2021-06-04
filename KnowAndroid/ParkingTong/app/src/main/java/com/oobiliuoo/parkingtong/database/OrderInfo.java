@@ -1,18 +1,36 @@
-package com.oobiliuoo.parkingtong.object;
+package com.oobiliuoo.parkingtong.database;
 
-public class OrderInfo {
+import org.litepal.annotation.Column;
+import org.litepal.crud.LitePalSupport;
+
+/**
+ * @author biliu
+ */
+public class OrderInfo extends LitePalSupport {
+
+    @Column(nullable = false)
     private String orderID;
-    private String parkName;
-    private String oderTime;
-    private String money;
-    private String inTime;
-    private String outTime;
-    private String state;
 
+    @Column(nullable = false)
+    private String orderTel;
+
+    @Column(nullable = false)
+    private String parkName;
+    @Column(nullable = false)
+    private String oderTime;
+    @Column(defaultValue = "0")
+    private String money;
+    @Column(defaultValue = "unKnow")
+    private String inTime;
+    @Column(defaultValue = "unKnow")
+    private String outTime;
+    @Column(defaultValue = "预订")
+    private String state;
 
 
     public OrderInfo() {
     }
+
 
     public OrderInfo(String orderID, String parkName, String oderTime, String state) {
         this.orderID = orderID;
@@ -27,6 +45,14 @@ public class OrderInfo {
 
     public void setOrderID(String orderID) {
         this.orderID = orderID;
+    }
+
+    public String getOrderTel() {
+        return orderTel;
+    }
+
+    public void setOrderTel(String orderTel) {
+        this.orderTel = orderTel;
     }
 
     public String getParkName() {

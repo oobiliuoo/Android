@@ -48,25 +48,31 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
 
     private static final String TAG = "BaiduMapBaseActivity";
 
+    /**湘南学院坐标*/
     protected LatLng xnxyPos = new LatLng(25.789994,113.107715);
+    /**北湖公园坐标*/
     protected LatLng northLakeParkPos= new LatLng(25.805296,113.033332);
-
+    /**当前位置坐标，初始化为湘南学院*/
     protected LatLng currentPos  = xnxyPos;
 
-    // 是否第一次定位
+    /**是否第一次定位*/
     boolean isFirstLocate = true;
-
+    /**定位需要的位置对象*/
     protected LocationClient mLocationClient;
 
+
     protected MapView mMapView ;
+    /**百度地图对象*/
     protected BaiduMap mBaiduMap = null;
 
+    /**兴趣点搜索对象*/
     protected PoiSearch poiSearch;
+    /**兴趣点覆盖物对象*/
     protected PoiOverlay poiOverlay;
-
+    /**路线规划对象*/
     protected RoutePlanSearch routePlanSearch;
 
-    // 加final 是为了不让子类覆盖,预防一些类还没初始化就被子类调用
+    /**加final 是为了不让子类覆盖,预防一些类还没初始化就被子类调用*/
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,9 +131,10 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
 
     }
 
+    /**提供给子类的初始化函数*/
     public abstract void init();
 
-    /*
+    /**
      *  验证是否获取到需要的权限
      * */
     @Override
@@ -149,6 +156,7 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
     }
 
 
+    /**定位监听类*/
     private class MyLocationLister extends BDAbstractLocationListener {
 
         @Override
@@ -172,13 +180,12 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
             }
             locationInfo.setText(currentPosition);
             */
-
             navigateTo(bdLocation);
         }
 
     }
 
-    /*
+    /**
      *   请求定位
      * */
     private void requestLocation() {
@@ -186,7 +193,7 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
         mLocationClient.start();
     }
 
-    /*
+    /**
      *   百度地图初始化
      * */
     private void initLocation() {
@@ -245,9 +252,10 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
 
     }
 
-    // 将当前位置在地图上显示出来
+    /**将当前位置在地图上显示出来*/
     private void navigateTo(BDLocation bdLocation) {
         if(isFirstLocate) {
+            // 保存当前位置坐标
             currentPos = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(currentPos);
             mBaiduMap.animateMapStatus(update);
@@ -267,8 +275,9 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
     }
 
 
-    /*
+    /**
      *  生成这个方法是为了子类能够覆盖
+     *  兴趣点的点击事件
      * */
     public boolean onPoiClick(int i) {
         PoiInfo poiInfo = poiOverlay.getPoiResult().getAllPoi().get(i);
@@ -280,24 +289,21 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
 
 
     // 因为其他搜索结果处理是相同的，所以放在父类
-    /* 获取兴趣点信息*/
+    /** 获取兴趣点信息*/
     @Override
     public void onGetPoiResult(PoiResult poiResult) {
         if(poiResult == null || poiResult.error != SearchResult.ERRORNO.NO_ERROR){
 
             Toast.makeText(this,"没有搜索到结果",Toast.LENGTH_SHORT).show();
-
             Log.i(TAG, "onGetPoiResult: " + poiResult.error.toString());
-
             return;
-
         }
-
-        poiOverlay.setData(poiResult);  // 把数据设置给覆盖物
-        poiOverlay.addToMap();          // 把所有的数据变成覆盖物添加到baiduMap中
-        poiOverlay.zoomToSpan();        // 把所有的搜索结果在屏幕内显示出来
-
-
+        // 把数据设置给覆盖物
+        poiOverlay.setData(poiResult);
+        // 把所有的数据变成覆盖物添加到baiduMap中
+        poiOverlay.addToMap();
+        // 把所有的搜索结果在屏幕内显示出来
+        poiOverlay.zoomToSpan();
         Log.i(TAG, "onGetPoiResult: " + poiResult.getTotalPoiNum());
     }
 

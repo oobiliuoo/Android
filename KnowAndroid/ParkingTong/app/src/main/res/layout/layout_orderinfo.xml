@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/orderInfo_tv1"
@@ -42,36 +42,51 @@
 
         <TextView
             android:id="@+id/orderInfo_pName"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:text="湘南学院停车场"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="#2b2b2b"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderInfo_tv1" />
+
+        <TextView
+            android:id="@+id/orderInfo_tv2"
+            android:layout_width="10dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="￥"
+            android:textSize="18sp"
+            android:textColor="#2bdbaa"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
         <TextView
             android:id="@+id/orderInfo_tvMoney"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_height="30dp"
             android:gravity="center"
-            android:text="￥ 100"
+            android:text="100.00"
             android:textSize="18sp"
-            app:layout_constraintRight_toLeftOf="@id/orderInfo_tvState"
-            app:layout_constraintTop_toBottomOf="@+id/orderInfo_tvOrderTime"
+            android:textColor="#2bdbaa"
+            app:layout_constraintLeft_toRightOf="@id/orderInfo_tv2"
+            app:layout_constraintBottom_toBottomOf="parent"
 
             />
 
         <TextView
             android:id="@+id/orderInfo_tvState"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@color/yellow_1"
             android:gravity="center"
-            android:text="停车中"
+            android:text="预约成功"
+            android:textColor="#4de0b9"
             android:textSize="16dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orderInfo_tvOrderTime" />
@@ -79,8 +94,7 @@
         <TextView
             android:id="@+id/orderInfo_inTime"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
+            android:layout_height="20dp"
             android:gravity="center"
             android:text="5-25 12:50 "
             app:layout_constraintLeft_toLeftOf="parent"
@@ -91,7 +105,7 @@
         <ImageView
             android:id="@+id/orderInfo_iv1"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_baseline_forward_24"
             app:layout_constraintLeft_toRightOf="@id/orderInfo_inTime"
             app:layout_constraintTop_toBottomOf="@id/orderInfo_pName"
@@ -102,7 +116,7 @@
         <TextView
             android:id="@+id/orderInfo_outTime"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:gravity="center"
             android:text="5-25 13:11 "
             app:layout_constraintLeft_toRightOf="@+id/orderInfo_iv1"
@@ -110,13 +124,15 @@
 
             />
 
+
         <Button
             android:id="@+id/orderInfo_btnCancel"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="取消"
-            android:textSize="10sp"
-            android:visibility="gone"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="支付"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/button_drawable_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

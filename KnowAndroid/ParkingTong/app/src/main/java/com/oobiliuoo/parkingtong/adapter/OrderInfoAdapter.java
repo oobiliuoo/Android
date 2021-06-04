@@ -1,6 +1,7 @@
 package com.oobiliuoo.parkingtong.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.oobiliuoo.parkingtong.R;
-import com.oobiliuoo.parkingtong.object.OrderInfo;
+import com.oobiliuoo.parkingtong.database.OrderInfo;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
 import java.util.List;
@@ -57,20 +58,22 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         viewHolder.orderTime.setText(orderInfo.getOderTime());
         viewHolder.pName.setText(orderInfo.getParkName());
         viewHolder.state.setText(orderInfo.getState());
-        if("已预订".equals(orderInfo.getState())){
-            viewHolder.btn1.setVisibility(View.VISIBLE);
-            viewHolder.inTime.setVisibility(View.INVISIBLE);
-            viewHolder.iv1.setVisibility(View.INVISIBLE);
-            viewHolder.outTime.setVisibility(View.INVISIBLE);
-            viewHolder.money.setVisibility(View.INVISIBLE);
+        viewHolder.money.setText(orderInfo.getMoney());
 
-        }else if("停车中".equals(orderInfo.getState())){
-            viewHolder.outTime.setVisibility(View.INVISIBLE);
-            viewHolder.money.setVisibility(View.INVISIBLE);
+
+
+        if("已完成".equals(orderInfo.getState())){
             viewHolder.btn1.setVisibility(View.INVISIBLE);
+            viewHolder.state.setTextColor(0xffc4c4c4);
+            Utils.mLog1("OrderInfoA","C "+ viewHolder.pName.getText() + " " + viewHolder.state.getText());
+        }
 
-        }else if("已完成".equals(orderInfo.getState())){
-            viewHolder.money.setText("￥"+orderInfo.getMoney());
+
+        if("预订".equals(orderInfo.getState())){
+            viewHolder.btn1.setVisibility(View.VISIBLE);
+            viewHolder.btn1.setText("取消");
+            viewHolder.state.setTextColor(0xfffda97e);
+            Utils.mLog1("OrderInfoA","O "+ viewHolder.pName.getText()+ " " + viewHolder.state.getText());
 
         }
 
