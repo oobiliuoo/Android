@@ -20,7 +20,14 @@
         android:roundIcon="@drawable/car"
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkingTong">
-        <activity android:name=".utils.ManagerActivity"></activity>
+        <activity android:name=".utils.ManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ui.ChangeInfoActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoginActivity" />
@@ -30,11 +37,7 @@
             android:value="MQu7bDvnjgGAcPPheOHW1hslCwoG7gvR" />
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HelloBaiduMapActivity" />
 
