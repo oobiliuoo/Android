@@ -4,11 +4,13 @@
     <!-- 数据库名 -->
     <dbname value="ParkingTong"/>
     <!-- 版本号 -->
-    <version value="2"/>
+    <version value="3"/>
     <list>
         <!-- 创建表 -->
         <mapping class="com.oobiliuoo.parkingtong.database.UsersInfo"/>
         <mapping class="com.oobiliuoo.parkingtong.database.OrderInfo"/>
+        <mapping class="com.oobiliuoo.parkingtong.database.CarInfo"/>
+        <mapping class="com.oobiliuoo.parkingtong.database.CarModelTable"/>
 
     </list>
 </litepal>

@@ -139,6 +139,12 @@ public class OrderFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         Utils.mLog1("OF:onStop");

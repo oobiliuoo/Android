@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="carNameArray">
+        <item>奥迪A8</item>
+        <item>奔驰CLA</item>
+        <item>奥迪A8</item>
+        <item>奥迪A8</item>
+    </string-array>
+
+
+</resources>

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.oobiliuoo.parkingtong.ui.HomeFragment;
 import com.oobiliuoo.parkingtong.adapter.MyFragmentPagerAdapter;
 import com.oobiliuoo.parkingtong.ui.MineFragment;
+import com.oobiliuoo.parkingtong.ui.MineFragment2;
 import com.oobiliuoo.parkingtong.ui.OrderFragment;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
@@ -53,12 +54,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         ivCurrent = ivHome;
     }
 
+
+
     private void initPager() {
         viewPager = findViewById(R.id.id_viewpager);
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance("通信录"));
         fragments.add(OrderFragment.newInstance("发现","参数"));
-        fragments.add(MineFragment.newInstance("我","参数"));
+        fragments.add(MineFragment2.newInstance("我","参数"));
         MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),getLifecycle(),fragments);
         viewPager.setAdapter(pagerAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

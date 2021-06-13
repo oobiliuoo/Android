@@ -3,15 +3,25 @@ package com.oobiliuoo.parkingtong.ui;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +32,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.oobiliuoo.parkingtong.R;
+import com.oobiliuoo.parkingtong.database.CarInfo;
+import com.oobiliuoo.parkingtong.database.CarModelTable;
 import com.oobiliuoo.parkingtong.database.UsersInfo;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
@@ -29,16 +41,17 @@ import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MineFragment#newInstance} factory method to
+ * Use the {@link MineFragment2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MineFragment extends Fragment {
+public class MineFragment2 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,10 +64,12 @@ public class MineFragment extends Fragment {
     private TextView tvNickName;
     private TextView tvGender;
     private TextView tvTel;
-    private Button btnQuit;
-    private TextView tvCarNum;
     private ImageButton ibAddCar;
+    private ImageView imageView;
+    private Button btnQuit;
     private ConstraintLayout changeInfo;
+    private ConstraintLayout carInfo;
+    private LinearLayout addCar;
 
     private Handler mHandler;
     private List<String> infoList;
@@ -66,7 +81,7 @@ public class MineFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MineFragment() {
+    public MineFragment2() {
         // Required empty public constructor
     }
 
@@ -79,8 +94,8 @@ public class MineFragment extends Fragment {
      * @return A new instance of fragment MineFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MineFragment newInstance(String param1, String param2) {
-        MineFragment fragment = new MineFragment();
+    public static MineFragment2 newInstance(String param1, String param2) {
+        MineFragment2 fragment = new MineFragment2();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -103,7 +118,7 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        return inflater.inflate(R.layout.fragment_mine_2, container, false);
     }
 
 
@@ -114,10 +129,15 @@ public class MineFragment extends Fragment {
     }
 
     private void initView() {
-        changeCurrentUser("");
+
+       // initDate();
+
         infoList = new ArrayList<>();
         imageButton = getView().findViewById(R.id.mine_btn_login);
         imageButton.setOnClickListener(new Lister());
+
+        imageView = getView().findViewById(R.id.mine_iv_1);
+
         btnQuit = getView().findViewById(R.id.mine_btn_quit);
         btnQuit.setOnClickListener(new Lister());
 
@@ -126,12 +146,14 @@ public class MineFragment extends Fragment {
         tvGender = getView().findViewById(R.id.mine_tv_gender);
         tvTel = getView().findViewById(R.id.mine_tv_tel);
 
-        tvCarNum = getView().findViewById(R.id.mine_tv_carNum);
         ibAddCar = getView().findViewById(R.id.mine_btn_addCar);
         ibAddCar.setOnClickListener(new Lister());
 
         changeInfo = getView().findViewById(R.id.mine_btn_changeInfo);
         changeInfo.setOnClickListener(new Lister());
+
+        carInfo = getView().findViewById(R.id.mine_CL_carInfo);
+        addCar = getView().findViewById(R.id.mine_ll_addCar);
 
         mHandler = new Handler() {
             @Override
@@ -149,6 +171,9 @@ public class MineFragment extends Fragment {
                         // 接收成功
                         changeUI(infoList);
                         break;
+                    case  4:
+                        initCarInfo();
+                        break;
                     default:
                         break;
                 }
@@ -159,10 +184,58 @@ public class MineFragment extends Fragment {
         // 读取帐号信息
         if (tel != "") {
             imageButton.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
             readDate(tel);
+            initCarInfo();
         } else {
             imageButton.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
+            uName.setText("");
+            tvGender.setText("");
+            tvTel.setText("");
         }
+
+        carInfo.setVisibility(View.GONE);
+        addCar.setVisibility(View.VISIBLE);
+    }
+
+    private void initCarInfo() {
+
+        addCar.setVisibility(View.GONE);
+        List<CarInfo> car = LitePal.where("tel = ?", Utils.readCurrentUser(getContext())).find(CarInfo.class);
+        if(car.size()>0) {
+            carInfo.setVisibility(View.VISIBLE);
+            TextView carNum = getActivity().findViewById(R.id.mine_tv_carNum);
+            carNum.setText(car.get(0).getCarNum());
+            TextView carName = getActivity().findViewById(R.id.mine_tv_carName);
+            carName.setText(car.get(0).getCarName());
+            TextView carModel = getActivity().findViewById(R.id.mine_tv_carModel);
+            carModel.setText(car.get(0).getCarModel());
+        }else {
+            Utils.showToast(getContext(),"请先绑定车辆");
+        }
+
+    }
+
+    private void initDate() {
+
+        // 首次执行需要下面语句创建数据库
+        SQLiteDatabase db = LitePal.getDatabase();
+
+        String AODI_A8 = "奥迪A8";
+        String[] AODI_A8_MODEL = {"2021款 A8L 50 TFSI quattro 舒适型"
+                                    ,"2021款 A8L 50 TFSI quattro 豪华型"
+                                        ,"2021款 A8L 55 TFSI quattro 尊贵型"};
+
+
+        for(int i=0;i<3;i++) {
+            CarModelTable carModel1 = new CarModelTable();
+            carModel1.setCarName(AODI_A8);
+            carModel1.setCarModel(AODI_A8_MODEL[i]);
+            carModel1.save();
+        }
+
+        Utils.mLog1("MF","initDate ok");
 
     }
 
@@ -202,6 +275,20 @@ public class MineFragment extends Fragment {
                 case R.id.mine_btn_addCar:
 
                     View view2 = View.inflate(getActivity(), R.layout.layout_mine_addcar, null);
+                    Spinner carName = view2.findViewById(R.id.addCar_carName);
+                    carName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            initCarModel(view2);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+
                     new AlertDialog.Builder(getActivity())
                             .setTitle("添加车辆")
                             .setView(view2)
@@ -209,10 +296,25 @@ public class MineFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     EditText carNum = view2.findViewById(R.id.addCar_carNum);
-                                    String s = carNum.getText().toString();
-                                    Toast.makeText(getActivity(), "确定", Toast.LENGTH_SHORT).show();
-                                    tvCarNum.setVisibility(View.VISIBLE);
-                                    tvCarNum.setText(s);
+                                    String strCarNum = carNum.getText().toString();
+                                    Spinner carName = view2.findViewById(R.id.addCar_carName);
+                                    String strCarName = carName.getSelectedItem().toString();
+                                    Spinner carModel = view2.findViewById(R.id.addCar_carModel);
+                                    String strCarModel= carModel.getSelectedItem().toString();
+                                    List<CarInfo> carInfo = LitePal.where("carNum = ?", strCarNum).find(CarInfo.class);
+                                    if(carInfo.size()==0) {
+                                        CarInfo mCarInfo = new CarInfo();
+                                        mCarInfo.setTel(Utils.readCurrentUser(getContext()));
+                                        mCarInfo.setCarNum(strCarNum);
+                                        mCarInfo.setCarName(strCarName);
+                                        mCarInfo.setCarModel(strCarModel);
+                                        mCarInfo.save();
+                                        Utils.sendMessage(mHandler,4,"4");
+                                        Toast.makeText(getActivity(), "确定", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), "该车牌已经绑定", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -232,6 +334,33 @@ public class MineFragment extends Fragment {
             }
 
         }
+    }
+
+
+
+    public void initCarModel(View view){
+
+
+        Spinner mCarName = view.findViewById(R.id.addCar_carName);
+
+        String carName = mCarName.getSelectedItem().toString();
+
+        List<CarModelTable> carModelList = LitePal.where("carName = ?", carName).find(CarModelTable.class);
+        String[] mCarModel = new String[10];
+        int i = 0;
+        if(carModelList.size()>0){
+            for(CarModelTable model : carModelList){
+                mCarModel[i] = model.getCarModel();
+                i++;
+            }
+        }
+
+        Spinner carModel = view.findViewById(R.id.addCar_carModel);
+
+        ArrayAdapter<String>  adapter = new ArrayAdapter<String>(getContext(),R.layout.support_simple_spinner_dropdown_item,mCarModel);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        carModel.setAdapter(adapter);
+
     }
 
     /**
