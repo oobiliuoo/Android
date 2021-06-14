@@ -46,6 +46,7 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
             viewHolder.outTime = view.findViewById(R.id.orderInfo_outTime);
             viewHolder.iv1 = view.findViewById(R.id.orderInfo_iv1);
             viewHolder.btn1 = view.findViewById(R.id.orderInfo_btnCancel);
+            viewHolder.tvCarNum = view.findViewById(R.id.orderInfo_carNum);
 
             view.setTag(viewHolder);
 
@@ -59,7 +60,7 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         viewHolder.pName.setText(orderInfo.getParkName());
         viewHolder.state.setText(orderInfo.getState());
         viewHolder.money.setText(orderInfo.getMoney());
-
+        viewHolder.tvCarNum.setText(orderInfo.getCarNum());
 
 
         if("已完成".equals(orderInfo.getState())){
@@ -92,7 +93,7 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         TextView inTime;
         TextView outTime;
         ImageView iv1;
-
+        TextView tvCarNum;
         Button btn1;
 
     }

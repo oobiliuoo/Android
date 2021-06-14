@@ -87,7 +87,8 @@ public class OrderFragment extends Fragment {
     public void onStart() {
         Utils.mLog1("OF:onStart");
         super.onStart();
-        if(listView == null){ initView();}
+        //if(listView == null){ initView();}
+        initView();
 
     }
 
@@ -98,11 +99,12 @@ public class OrderFragment extends Fragment {
         OrderInfoAdapter adapter = new OrderInfoAdapter(getContext(),R.layout.layout_orderinfo,orderInfoList);
 
         listView = getView().findViewById(R.id.order_lv_1);
-
+        listView.deferNotifyDataSetChanged();
         listView.setAdapter(adapter);
 
     }
     private void initOrderInfo() {
+        orderInfoList.clear();
         // 从本地数据库读取数据
         // 读取当前登录用户
         String tel =  Utils.readCurrentUser(getContext());

@@ -26,6 +26,8 @@ public class OrderInfo extends LitePalSupport {
     private String outTime;
     @Column(defaultValue = "预订")
     private String state;
+    @Column(defaultValue = "unKnow")
+    private String carNum;
 
 
     public OrderInfo() {
@@ -101,5 +103,13 @@ public class OrderInfo extends LitePalSupport {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getCarNum() {
+        return carNum;
+    }
+
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
     }
 }

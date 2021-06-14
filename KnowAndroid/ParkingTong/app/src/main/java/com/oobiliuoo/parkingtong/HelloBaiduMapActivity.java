@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -40,12 +41,15 @@ import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.utils.DistanceUtil;
+import com.oobiliuoo.parkingtong.database.CarInfo;
 import com.oobiliuoo.parkingtong.database.OrderInfo;
 import com.oobiliuoo.parkingtong.net.TcpClient;
 import com.oobiliuoo.parkingtong.obj.MyTime;
 import com.oobiliuoo.parkingtong.ui.RegisterActivity;
 import com.oobiliuoo.parkingtong.utils.Utils;
 import com.oobiliuoo.parkingtong.utils.overlayutil.DrivingRouteOverlay;
+
+import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -161,6 +165,7 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
             orderInfo.setInTime(msg[5]);
             orderInfo.setOutTime(msg[6]);
             orderInfo.setMoney(msg[7]);
+            orderInfo.setCarNum(msg[8]);
             orderInfo.save();
         }
     }
@@ -300,6 +305,9 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
             @Override
             public void onClick(View v) {
 
+
+
+
                 // 读取当前登录帐号
                 String tel = Utils.readCurrentUser(HelloBaiduMapActivity.this);
                 if (tel != "") {
@@ -324,21 +332,25 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
                                     String mMoney = MyTime.calTime(in, out) * 0.5 + "";
                                     // money.setText(mMoney);
 
-                                    new AlertDialog.Builder(HelloBaiduMapActivity.this)
-                                            .setTitle("预计收费" + mMoney)
-                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    MyTime myTime = new MyTime();
-                                                    String time = myTime.getTime();
-                                                    // 创建订单号
-                                                    String orderNum = myTime.getXxTime() + tel.substring(7, 11);
+                                    List<CarInfo> car = LitePal.where("tel = ?", Utils.readCurrentUser(HelloBaiduMapActivity.this)).find(CarInfo.class);
+                                    if(car.size()>0) {
+                                        String carNum = car.get(0).getCarNum();
+                                        new AlertDialog.Builder(HelloBaiduMapActivity.this)
+                                                .setTitle("预计收费" + mMoney)
+                                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        MyTime myTime = new MyTime();
+                                                        String time = myTime.getTime();
+                                                        // 创建订单号
+                                                        String orderNum = myTime.getXxTime() + tel.substring(7, 11);
 
-                                                    orderMsg = Utils.REQUEST_ADD_ORDER + orderNum + Utils.DIVISION + tel
-                                                            + Utils.DIVISION + pName + Utils.DIVISION + time
-                                                            + Utils.DIVISION + in + Utils.DIVISION + out + Utils.DIVISION + mMoney;
+                                                        orderMsg = Utils.REQUEST_ADD_ORDER + orderNum + Utils.DIVISION + tel
+                                                                + Utils.DIVISION + pName + Utils.DIVISION + time
+                                                                + Utils.DIVISION + in + Utils.DIVISION + out + Utils.DIVISION + mMoney
+                                                                + Utils.DIVISION + carNum;
 
-                                                    Utils.sendMessage(mHandler, 3, Utils.RESPOND_ADD_ORDER_OK);
+                                                        Utils.sendMessage(mHandler, 3, Utils.RESPOND_ADD_ORDER_OK);
 
                                                     /*
                                                     // TODO 将信息发送至远程服务器
@@ -350,16 +362,25 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
                                                     tcpClient.send();
                                                      */
 
-                                                }
-                                            })
-                                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
+                                                        String carLatLon = target.longitude + "," +target.latitude;
+                                                        // 保存目标位置到本地
+                                                        SharedPreferences.Editor editor = getSharedPreferences("data",MODE_PRIVATE).edit();
+                                                        editor.putString("carLatLog",carLatLon);
+                                                        editor.apply();
+                                                    }
+                                                })
+                                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
 
-                                                    Toast.makeText(HelloBaiduMapActivity.this, "取消", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }).show();
+                                                        Toast.makeText(HelloBaiduMapActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }).show();
+                                    }else {
 
+                                        Toast.makeText(HelloBaiduMapActivity.this, "请先绑定车辆", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
 
                                 }
                             })

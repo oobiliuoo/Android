@@ -7,21 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,13 +31,13 @@ import com.oobiliuoo.parkingtong.R;
 import com.oobiliuoo.parkingtong.database.CarInfo;
 import com.oobiliuoo.parkingtong.database.CarModelTable;
 import com.oobiliuoo.parkingtong.database.UsersInfo;
+import com.oobiliuoo.parkingtong.utils.ManagerActivity;
 import com.oobiliuoo.parkingtong.utils.Utils;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -67,14 +63,15 @@ public class MineFragment2 extends Fragment {
     private ImageButton ibAddCar;
     private ImageView imageView;
     private Button btnQuit;
-    private ConstraintLayout changeInfo;
-    private ConstraintLayout carInfo;
-    private LinearLayout addCar;
+    private ConstraintLayout clChangeInfo;
+    private ConstraintLayout clCarInfo;
+    private LinearLayout llAddCar;
+    private ImageButton ibSetting;
 
     private Handler mHandler;
     private List<String> infoList;
 
-    private boolean isReceiveRun = true;
+    private boolean isLogin = false;
 
 
     // TODO: Rename and change types of parameters
@@ -149,11 +146,14 @@ public class MineFragment2 extends Fragment {
         ibAddCar = getView().findViewById(R.id.mine_btn_addCar);
         ibAddCar.setOnClickListener(new Lister());
 
-        changeInfo = getView().findViewById(R.id.mine_btn_changeInfo);
-        changeInfo.setOnClickListener(new Lister());
+        clChangeInfo = getView().findViewById(R.id.mine_btn_changeInfo);
+        clChangeInfo.setOnClickListener(new Lister());
 
-        carInfo = getView().findViewById(R.id.mine_CL_carInfo);
-        addCar = getView().findViewById(R.id.mine_ll_addCar);
+        clCarInfo = getView().findViewById(R.id.mine_CL_carInfo);
+        llAddCar = getView().findViewById(R.id.mine_ll_addCar);
+
+        ibSetting = getView().findViewById(R.id.mine_ib_setting);
+        ibSetting.setOnClickListener(new Lister());
 
         mHandler = new Handler() {
             @Override
@@ -183,28 +183,31 @@ public class MineFragment2 extends Fragment {
         String tel = Utils.readCurrentUser(getContext());
         // 读取帐号信息
         if (tel != "") {
+
             imageButton.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
             readDate(tel);
-            initCarInfo();
+            if(!isLogin) {
+                initCarInfo();
+            }
+            isLogin = true;
         } else {
             imageButton.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);
+            clCarInfo.setVisibility(View.GONE);
             uName.setText("");
             tvGender.setText("");
             tvTel.setText("");
         }
 
-        carInfo.setVisibility(View.GONE);
-        addCar.setVisibility(View.VISIBLE);
     }
 
     private void initCarInfo() {
 
-        addCar.setVisibility(View.GONE);
+        llAddCar.setVisibility(View.GONE);
         List<CarInfo> car = LitePal.where("tel = ?", Utils.readCurrentUser(getContext())).find(CarInfo.class);
         if(car.size()>0) {
-            carInfo.setVisibility(View.VISIBLE);
+            clCarInfo.setVisibility(View.VISIBLE);
             TextView carNum = getActivity().findViewById(R.id.mine_tv_carNum);
             carNum.setText(car.get(0).getCarNum());
             TextView carName = getActivity().findViewById(R.id.mine_tv_carName);
@@ -240,6 +243,7 @@ public class MineFragment2 extends Fragment {
     }
 
     private void changeUI(List<String> info) {
+        tvNickName.setVisibility(View.VISIBLE);
         uName.setText(info.get(0));
         tvGender.setText(info.get(1));
         tvTel.setText(info.get(2));
@@ -267,7 +271,9 @@ public class MineFragment2 extends Fragment {
                     Utils.showToast(getContext(), "退出登录");
                     // 修改本地账户为"“
                     changeCurrentUser("");
+                    isLogin = false;
                     tvNickName.setVisibility(View.GONE);
+                    clCarInfo.setVisibility(View.GONE);
                     // 打开登录界面并获取结果
                     startActivityForResult(new Intent(getActivity(), LoginActivity.class), 1);
                     break;
@@ -329,6 +335,10 @@ public class MineFragment2 extends Fragment {
                     startActivity(new Intent(getActivity(),ChangeInfoActivity.class));
                     break;
 
+                case R.id.mine_ib_setting:
+
+                    startActivity(new Intent(getActivity(), ManagerActivity.class));
+                    break;
                 default:
                     break;
             }
