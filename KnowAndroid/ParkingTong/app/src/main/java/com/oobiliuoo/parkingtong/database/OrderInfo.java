@@ -24,7 +24,7 @@ public class OrderInfo extends LitePalSupport {
     private String inTime;
     @Column(defaultValue = "unKnow")
     private String outTime;
-    @Column(defaultValue = "预订")
+    @Column(defaultValue = "预订成功")
     private String state;
     @Column(defaultValue = "unKnow")
     private String carNum;

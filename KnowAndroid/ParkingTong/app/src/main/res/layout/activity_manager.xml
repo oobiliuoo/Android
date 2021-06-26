@@ -6,4 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".utils.ManagerActivity">
 
+    <Button
+        android:id="@+id/manager_btn_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="56dp"
+        android:text="user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/manager_btn_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="order"
+        app:layout_constraintStart_toEndOf="@+id/manager_btn_user"
+        app:layout_constraintTop_toTopOf="@+id/manager_btn_user" />
+
+    <Button
+        android:id="@+id/manager_btn_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="car"
+        app:layout_constraintStart_toEndOf="@+id/manager_btn_order"
+        app:layout_constraintTop_toTopOf="@+id/manager_btn_user" />
+
+    <ListView
+        android:id="@+id/manager_list"
+        android:layout_width="395dp"
+        android:layout_height="444dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manager_btn_order" />
 </androidx.constraintlayout.widget.ConstraintLayout>

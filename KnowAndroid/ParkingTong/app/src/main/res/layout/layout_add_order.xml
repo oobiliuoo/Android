@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="datetime"
-        android:hint="开始时间"
+        android:hint="开始时间 EX：2021-6-26 20：30"
         />
 
     <EditText
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="datetime"
-        android:hint="结束时间"
+        android:hint="结束时间 EX: Year-Month-Day Hour:minute"
         />
 
 
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="预计收费："
         app:layout_constraintTop_toBottomOf="@+id/add_order_outTime"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
@@ -39,6 +40,7 @@
         android:id="@+id/add_order_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:text="100.00"
         app:layout_constraintTop_toBottomOf="@+id/add_order_outTime"
         app:layout_constraintLeft_toRightOf="@+id/add_order_tv1"

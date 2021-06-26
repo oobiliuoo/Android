@@ -204,7 +204,6 @@ public class MineFragment2 extends Fragment {
 
     private void initCarInfo() {
 
-        llAddCar.setVisibility(View.GONE);
         List<CarInfo> car = LitePal.where("tel = ?", Utils.readCurrentUser(getContext())).find(CarInfo.class);
         if(car.size()>0) {
             clCarInfo.setVisibility(View.VISIBLE);
@@ -215,6 +214,10 @@ public class MineFragment2 extends Fragment {
             TextView carModel = getActivity().findViewById(R.id.mine_tv_carModel);
             carModel.setText(car.get(0).getCarModel());
         }else {
+
+            llAddCar.setVisibility(View.VISIBLE);
+            clCarInfo.setVisibility(View.GONE);
+
             Utils.showToast(getContext(),"请先绑定车辆");
         }
 
@@ -237,6 +240,8 @@ public class MineFragment2 extends Fragment {
             carModel1.setCarModel(AODI_A8_MODEL[i]);
             carModel1.save();
         }
+
+
 
         Utils.mLog1("MF","initDate ok");
 
@@ -307,19 +312,26 @@ public class MineFragment2 extends Fragment {
                                     String strCarName = carName.getSelectedItem().toString();
                                     Spinner carModel = view2.findViewById(R.id.addCar_carModel);
                                     String strCarModel= carModel.getSelectedItem().toString();
-                                    List<CarInfo> carInfo = LitePal.where("carNum = ?", strCarNum).find(CarInfo.class);
-                                    if(carInfo.size()==0) {
-                                        CarInfo mCarInfo = new CarInfo();
-                                        mCarInfo.setTel(Utils.readCurrentUser(getContext()));
-                                        mCarInfo.setCarNum(strCarNum);
-                                        mCarInfo.setCarName(strCarName);
-                                        mCarInfo.setCarModel(strCarModel);
-                                        mCarInfo.save();
-                                        Utils.sendMessage(mHandler,4,"4");
-                                        Toast.makeText(getActivity(), "确定", Toast.LENGTH_SHORT).show();
+                                    if(!"".equals(strCarNum)){
+                                        List<CarInfo> carInfo = LitePal.where("carNum = ?", strCarNum).find(CarInfo.class);
+                                        if(carInfo.size()==0) {
+                                            CarInfo mCarInfo = new CarInfo();
+                                            mCarInfo.setTel(Utils.readCurrentUser(getContext()));
+                                            mCarInfo.setCarNum(strCarNum);
+                                            mCarInfo.setCarName(strCarName);
+                                            mCarInfo.setCarModel(strCarModel);
+                                            mCarInfo.save();
+                                            Utils.sendMessage(mHandler,4,"4");
+                                            Toast.makeText(getActivity(), "确定", Toast.LENGTH_SHORT).show();
+                                            llAddCar.setVisibility(View.GONE);
+                                        }else {
+                                            Toast.makeText(getActivity(), "该车牌已经绑定", Toast.LENGTH_SHORT).show();
+                                        }
                                     }else {
-                                        Toast.makeText(getActivity(), "该车牌已经绑定", Toast.LENGTH_SHORT).show();
+
+                                        Toast.makeText(getActivity(), "请输入车牌", Toast.LENGTH_SHORT).show();
                                     }
+
 
                                 }
                             })

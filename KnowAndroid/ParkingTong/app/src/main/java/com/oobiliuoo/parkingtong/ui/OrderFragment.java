@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.oobiliuoo.parkingtong.R;
@@ -102,6 +103,7 @@ public class OrderFragment extends Fragment {
         listView.deferNotifyDataSetChanged();
         listView.setAdapter(adapter);
 
+
     }
     private void initOrderInfo() {
         orderInfoList.clear();
@@ -114,6 +116,7 @@ public class OrderFragment extends Fragment {
             orderInfoList = LitePal.where("orderTel = ?",tel).order("id desc").find(OrderInfo.class);
         }
 
+        /*
         // 以下为自定义数据
         OrderInfo info1 = new OrderInfo("EE1900250145","新世纪超级无敌多的停车场出入口"
                 ,"2021-05-25 13:51","预订");
@@ -129,7 +132,7 @@ public class OrderFragment extends Fragment {
                 ,"2021-05-25 13:51","已完成");
         info4.setMoney("200");
         orderInfoList.add(info4);
-
+*/
 
     }
 

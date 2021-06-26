@@ -61,7 +61,19 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         viewHolder.state.setText(orderInfo.getState());
         viewHolder.money.setText(orderInfo.getMoney());
         viewHolder.tvCarNum.setText(orderInfo.getCarNum());
+        viewHolder.btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.showToast(getContext(),"取消" + viewHolder.orderID.getText().toString());
+                if( "预订成功".equals(orderInfo.getState())){
+                    orderInfo.setState("已取消");
+                    orderInfo.save();
+                    viewHolder.state.setText("已取消");
+                    viewHolder.btn1.setVisibility(View.INVISIBLE);
+                }
 
+            }
+        });
 
         if("已完成".equals(orderInfo.getState())){
             viewHolder.btn1.setVisibility(View.INVISIBLE);
@@ -70,10 +82,17 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         }
 
 
-        if("预订".equals(orderInfo.getState())){
+        if("预订成功".equals(orderInfo.getState())){
             viewHolder.btn1.setVisibility(View.VISIBLE);
             viewHolder.btn1.setText("取消");
             viewHolder.state.setTextColor(0xfffda97e);
+            Utils.mLog1("OrderInfoA","O "+ viewHolder.pName.getText()+ " " + viewHolder.state.getText());
+
+        }
+
+        if("已取消".equals(orderInfo.getState())){
+            viewHolder.btn1.setVisibility(View.INVISIBLE);
+            viewHolder.state.setTextColor(0xffcc3333);
             Utils.mLog1("OrderInfoA","O "+ viewHolder.pName.getText()+ " " + viewHolder.state.getText());
 
         }
