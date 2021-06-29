@@ -2,6 +2,7 @@ package com.oobiliuoo.parkingtong.utils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 
 import com.oobiliuoo.parkingtong.R;
 import com.oobiliuoo.parkingtong.database.CarInfo;
+import com.oobiliuoo.parkingtong.database.CarModelTable;
 import com.oobiliuoo.parkingtong.database.OrderInfo;
 import com.oobiliuoo.parkingtong.database.UsersInfo;
 
@@ -62,7 +64,7 @@ public class ManagerActivity extends AppCompatActivity {
         btn_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //initDate();
             }
         });
         btn_order = findViewById(R.id.manager_btn_order);
@@ -112,4 +114,29 @@ public class ManagerActivity extends AppCompatActivity {
 
         }
     }
+
+    private void initDate() {
+
+        // 首次执行需要下面语句创建数据库
+        SQLiteDatabase db = LitePal.getDatabase();
+
+        String AODI_A8 = "奥迪A8";
+        String[] AODI_A8_MODEL = {"2021款 A8L 50 TFSI quattro 舒适型"
+                ,"2021款 A8L 50 TFSI quattro 豪华型"
+                ,"2021款 A8L 55 TFSI quattro 尊贵型"};
+
+
+        for(int i=0;i<3;i++) {
+            CarModelTable carModel1 = new CarModelTable();
+            carModel1.setCarName(AODI_A8);
+            carModel1.setCarModel(AODI_A8_MODEL[i]);
+            carModel1.save();
+        }
+
+
+        Utils.showToast(ManagerActivity.this,"initdata ok");
+        Utils.mLog1("MF","initDate ok");
+
+    }
+
 }

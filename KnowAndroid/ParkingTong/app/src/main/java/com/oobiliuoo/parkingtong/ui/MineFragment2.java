@@ -368,9 +368,10 @@ public class MineFragment2 extends Fragment {
         String carName = mCarName.getSelectedItem().toString();
 
         List<CarModelTable> carModelList = LitePal.where("carName = ?", carName).find(CarModelTable.class);
-        String[] mCarModel = new String[10];
+        String[] mCarModel = null;
         int i = 0;
         if(carModelList.size()>0){
+            mCarModel = new String[carModelList.size()];
             for(CarModelTable model : carModelList){
                 mCarModel[i] = model.getCarModel();
                 i++;
