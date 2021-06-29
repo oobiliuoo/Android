@@ -34,12 +34,13 @@ public class ManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
 
-        data = new String[20];
+
+        list = findViewById(R.id.manager_list);
 
         initView();
 
-        testCarInfo();
-        testOrderInfo();
+        //testCarInfo();
+        //testOrderInfo();
 
     }
 
@@ -49,6 +50,7 @@ public class ManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<UsersInfo> order = LitePal.findAll(UsersInfo.class);
+                data = new String[order.size()];
                 if (order.size() > 0) {
                     int i = 0;
                     for (UsersInfo temp : order) {
@@ -65,14 +67,17 @@ public class ManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //initDate();
+                Utils.showToast(ManagerActivity.this,"test");
             }
         });
+
         btn_order = findViewById(R.id.manager_btn_order);
         btn_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     List<OrderInfo> order = LitePal.findAll(OrderInfo.class);
+                    data = new String[order.size()];
                     if (order.size() > 0) {
                         int i = 0;
                         for (OrderInfo temp : order) {
@@ -82,6 +87,7 @@ public class ManagerActivity extends AppCompatActivity {
                             i++;
                         }
 
+                        Utils.showToast(ManagerActivity.this,data[0]);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(ManagerActivity.this, android.R.layout.simple_list_item_1,data);
                         list.setAdapter(adapter);
                     }
@@ -89,7 +95,6 @@ public class ManagerActivity extends AppCompatActivity {
                 }
         });
 
-        list = findViewById(R.id.manager_list);
 
     }
 
