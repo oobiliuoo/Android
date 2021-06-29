@@ -39,6 +39,7 @@ import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.oobiliuoo.parkingtong.utils.Utils;
 import com.oobiliuoo.parkingtong.utils.overlayutil.PoiOverlay;
 
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
     /**定位需要的位置对象*/
     protected LocationClient mLocationClient;
 
+    protected BDLocation mBDlocation;
 
     protected MapView mMapView ;
     /**百度地图对象*/
@@ -180,6 +182,7 @@ public abstract class BaiduMapBaseActivity extends AppCompatActivity implements 
             }
             locationInfo.setText(currentPosition);
             */
+            mBDlocation = bdLocation;
             navigateTo(bdLocation);
         }
 

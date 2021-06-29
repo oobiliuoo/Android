@@ -203,6 +203,8 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
              * */
             @Override
             public void onClick(View v) {
+
+                Utils.showToast(HelloBaiduMapActivity.this,"当前城市: " + mBDlocation.getCity());
                 if (flagParkInfoView) {
                     removeParkInfoView();
                     flagParkInfoView = false;
@@ -223,7 +225,8 @@ public class HelloBaiduMapActivity extends BaiduMapBaseActivity {
     private PoiCitySearchOption getSearchInCityParams(String keyWork) {
         PoiCitySearchOption params = new PoiCitySearchOption();
         // 指定搜索城市
-        params.city("郴州");
+        //params.city("郴州");
+        params.city(mBDlocation.getCity());
         // 指定搜索内容
         params.keyword(keyWork);
         // 指定一页1条数据

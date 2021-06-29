@@ -127,7 +127,7 @@ public class MineFragment2 extends Fragment {
 
     private void initView() {
 
-       // initDate();
+        initDate();
 
         infoList = new ArrayList<>();
         imageButton = getView().findViewById(R.id.mine_btn_login);
@@ -228,22 +228,28 @@ public class MineFragment2 extends Fragment {
         // 首次执行需要下面语句创建数据库
         SQLiteDatabase db = LitePal.getDatabase();
 
-        String AODI_A8 = "奥迪A8";
-        String[] AODI_A8_MODEL = {"2021款 A8L 50 TFSI quattro 舒适型"
-                                    ,"2021款 A8L 50 TFSI quattro 豪华型"
-                                        ,"2021款 A8L 55 TFSI quattro 尊贵型"};
+        List<CarModelTable> carModelList = LitePal.findAll(CarModelTable.class);
+        if(carModelList.size() <= 0){
+            String AODI_A8 = "奥迪A8";
+            String[] AODI_A8_MODEL = {"2021款 A8L 50 TFSI quattro 舒适型"
+                    ,"2021款 A8L 50 TFSI quattro 豪华型"
+                    ,"2021款 A8L 55 TFSI quattro 尊贵型"};
+
+            for(int i=0;i<3;i++) {
+                CarModelTable carModel1 = new CarModelTable();
+                carModel1.setCarName(AODI_A8);
+                carModel1.setCarModel(AODI_A8_MODEL[i]);
+                carModel1.save();
+
+            }
 
 
-        for(int i=0;i<3;i++) {
-            CarModelTable carModel1 = new CarModelTable();
-            carModel1.setCarName(AODI_A8);
-            carModel1.setCarModel(AODI_A8_MODEL[i]);
-            carModel1.save();
+
+
+
+            Utils.mLog1("MF","initDate ok");
         }
 
-
-
-        Utils.mLog1("MF","initDate ok");
 
     }
 
@@ -279,6 +285,7 @@ public class MineFragment2 extends Fragment {
                     isLogin = false;
                     tvNickName.setVisibility(View.GONE);
                     clCarInfo.setVisibility(View.GONE);
+                    llAddCar.setVisibility(View.GONE);
                     // 打开登录界面并获取结果
                     startActivityForResult(new Intent(getActivity(), LoginActivity.class), 1);
                     break;

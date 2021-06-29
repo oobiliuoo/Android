@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.oobiliuoo.parkingtong.HelloBaiduMapActivity;
 import com.oobiliuoo.parkingtong.R;
+import com.oobiliuoo.parkingtong.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,18 +117,23 @@ public class HomeFragment extends Fragment {
                     break;
 
                 case R.id.home_cv_findCar:
+                    Utils.showToast(getContext(),"此功能暂未开放");
                     Log.i(TAG, "onClick: fc"  );
                     break;
                 case R.id.home_cv_parkLast:
+                    Utils.showToast(getContext(),"此功能暂未开放");
                     Log.i(TAG, "onClick: last park"  );
                     break;
                 case R.id.cardView_carNum:
+                    Utils.showToast(getContext(),"此功能暂未开放");
                     Log.i(TAG, "onClick: car num"  );
                     break;
                 case R.id.home_cv_notice:
+                    Utils.showToast(getContext(),"暂无公告");
                     Log.i(TAG, "onClick: notice"  );
                     break;
                 case R.id.home_cv_active:
+                    Utils.showToast(getContext(),"暂无活动");
                     Log.i(TAG, "onClick: actuve"  );
                     break;
 

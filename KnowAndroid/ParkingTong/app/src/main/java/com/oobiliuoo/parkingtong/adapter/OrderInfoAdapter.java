@@ -60,6 +60,8 @@ public class OrderInfoAdapter extends ArrayAdapter<OrderInfo> {
         viewHolder.pName.setText(orderInfo.getParkName());
         viewHolder.state.setText(orderInfo.getState());
         viewHolder.money.setText(orderInfo.getMoney());
+        viewHolder.inTime.setText(orderInfo.getInTime());
+        viewHolder.outTime.setText(orderInfo.getOutTime());
         viewHolder.tvCarNum.setText(orderInfo.getCarNum());
         viewHolder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
